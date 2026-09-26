@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Job Ops — Melissa Moreira</title>
+<title>Job Ops — Sara Pires</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -63,10 +63,23 @@ nav{display:flex;gap:2px}
 .hloc{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:500;padding:2px 6px;border-radius:3px;background:var(--bg4);color:var(--text2);margin-top:3px;border:1px solid var(--border2)}
 .hloc.remote{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
 .hloc.eu{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
-.hloc.us{background:var(--yellow-bg);color:var(--yellow);border-color:var(--yellow-border)}
 .applied-dot{width:8px;height:8px;border-radius:50%;background:var(--purple);flex-shrink:0;opacity:0;transition:opacity 0.15s}
 .applied-dot.on{opacity:1}
 .no-hist{font-family:var(--mono);font-size:12px;color:var(--text3);text-align:center;padding:20px 0}
+.already-badge{display:none;align-items:center;gap:8px;padding:10px 14px;background:var(--yellow-bg);border:1px solid var(--yellow-border);border-radius:var(--r);margin-top:0}
+.already-badge.on{display:flex}
+.already-badge-text{font-family:var(--mono);font-size:11px;color:var(--yellow);letter-spacing:0.04em}
+.already-badge-role{font-size:13px;font-weight:500;color:var(--text);margin-left:2px}
+.already-badge-link{font-family:var(--mono);font-size:10px;color:var(--yellow);background:transparent;border:1px solid var(--yellow-border);border-radius:4px;padding:3px 8px;cursor:pointer;transition:all 0.15s;margin-left:auto;white-space:nowrap}
+.already-badge-link:hover{background:var(--yellow-bg)}
+.grade-stats{display:flex;gap:4px;padding:2px 0;margin-bottom:4px;flex-wrap:wrap}
+.gstat{font-family:var(--mono);font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.gstat-count{font-size:11px;font-weight:600}
+.gsA{background:#052e16;color:#4ade80;border:1px solid #166534}
+.gsB{background:#1c3a08;color:#86efac;border:1px solid #166534}
+.gsC{background:#1a1000;color:#facc15;border:1px solid #713f12}
+.gsD{background:#1a0800;color:#fb923c;border:1px solid #7c2d12}
+.gsF{background:#1a0000;color:#f87171;border:1px solid #7f1d1d}
 .search-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:var(--sans);font-size:13px;padding:8px 12px;outline:none;transition:border-color 0.15s;margin-bottom:4px}
 .search-input:focus{border-color:var(--border2)}
 .search-input::placeholder{color:var(--text3)}
@@ -133,8 +146,8 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
 .applied-pill.on{display:inline-block}
 .sc-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .sc-grade-inline{display:none;font-size:13px;font-weight:600;width:28px;height:28px;border-radius:6px;flex-shrink:0;margin-right:8px;vertical-align:middle;position:relative;top:-1px}
-.btn-applied .short-label{display:none}
-.btn-applied .full-label{display:inline}
+.btn-applied .short-label,.btn-ghost .short-label{display:none}
+.btn-applied .full-label,.btn-ghost .full-label{display:inline}
 
 /* DIMS */
 .dims{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -211,7 +224,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
 
 .section-sep{border:none;border-top:1px solid var(--border);margin:4px 0}
 
-/* ── MOBILE NAV BAR ── */
+/* MOBILE NAV BAR */
 .mobile-nav{
   position:fixed;bottom:0;left:0;right:0;
   height:64px;
@@ -233,7 +246,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
 .mob-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid transparent;transition:all 0.15s;margin-bottom:1px}
 .mob-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── HISTORY DRAWER ── */
+/* HISTORY DRAWER */
 .hist-drawer{
   display:none;position:fixed;bottom:64px;left:0;right:0;
   background:var(--bg2);border-top:1px solid var(--border);
@@ -253,7 +266,6 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
 }
 
 @media(max-width:768px){
-  /* layout */
   header{padding:0 16px;height:52px}
   .logo span{display:none}
   .api-label{display:none}
@@ -261,25 +273,15 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
   .sidebar{display:none!important}
   .content{padding:14px 14px 20px;max-width:100%}
   .panel{gap:14px}
-
-  /* show mobile nav */
   .mobile-nav{display:flex}
   nav{display:none}
-
-  /* show history drawer when open */
   .hist-drawer{display:flex}
-
-  /* forms - prevent iOS zoom */
   textarea{font-size:16px;padding:12px;min-height:120px}
   select{font-size:16px;padding:11px 12px}
   input[type=text]{font-size:16px;padding:11px 12px}
   label.fl{font-size:11px;margin-bottom:6px}
-
-  /* evaluate panel */
   #jd-in{min-height:180px;font-size:15px}
   .row-end .btn-primary{width:100%;padding:13px;font-size:12px}
-
-  /* score card - mobile optimized */
   .score-card{padding:14px;gap:14px}
   .sc-top{flex-direction:column;gap:0}
   .sc-badge{display:none}
@@ -290,8 +292,8 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
   .sc-pills{gap:5px;margin-top:0;flex-wrap:wrap}
   .sc-actions{width:100%;margin-top:10px}
   .sc-actions .btn{width:100%;padding:11px;font-size:11px;letter-spacing:0.08em}
-  .btn-applied .full-label{display:none}
-  .btn-applied .short-label{display:inline}
+  .btn-applied .full-label,.btn-ghost .full-label{display:none}
+  .btn-applied .short-label,.btn-ghost .short-label{display:inline}
   .btn-applied.is-applied{opacity:1}
   .dims{grid-template-columns:1fr;gap:8px}
   .dim{padding:11px 13px}
@@ -299,18 +301,12 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
   .dnote{font-size:11px}
   .sc-summary{font-size:13px;line-height:1.7;padding-top:12px}
   .pill{font-size:10px;padding:3px 8px}
-
-  /* follow-up */
   .followup-card{padding:14px 16px;gap:12px}
   .followup-grid{grid-template-columns:1fr 1fr;gap:8px}
-
-  /* generate */
   .gtabs{width:100%;margin-bottom:4px}
   .gtab{flex:1;text-align:center;padding:7px 8px;font-size:10px}
   .row{flex-direction:column;gap:10px}
   .out-box{font-size:13px;line-height:1.7;padding:14px}
-
-  /* buttons in out-head */
   .out-head{flex-wrap:wrap;gap:8px}
   .out-head>div{display:flex;gap:6px;width:100%}
   .out-head .btn-ghost,.out-head .btn-applied{flex:1;text-align:center}
@@ -320,7 +316,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
 <body>
 <div id="app">
   <header>
-    <div class="logo">JOB-OPS <span>/ Melissa Moreira</span></div>
+    <div class="logo">JOB-OPS <span>/ Sara Pires</span></div>
     <div class="header-right">
       <div class="api-label"><span class="api-dot"></span>Ready</div>
       <nav>
@@ -334,6 +330,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
   <div class="main">
     <div class="sidebar">
       <div class="slab">History</div>
+      <div class="grade-stats" id="grade-stats"></div>
       <div id="key-setup-block" class="key-setup" style="display:none">
         <p>Paste your sync key to load your evaluations on this device.</p>
         <input type="text" id="sync-key-input" placeholder="Paste your sync key..." />
@@ -341,7 +338,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
       </div>
       <div class="sync-bar">
         <span class="sync-status" id="sync-status">Not synced</span>
-        <button class="sync-btn" onclick="showSyncSetup()" id="sync-setup-btn" title="Sync settings">⚙ Sync</button>
+        <button class="sync-btn" onclick="showSyncSetup()" id="sync-setup-btn" title="Sync settings">&#9881; Sync</button>
       </div>
       <input type="text" class="search-input" id="search-input" placeholder="Search roles or companies..." oninput="renderHist()" />
       <div class="sidebar-filters">
@@ -357,10 +354,15 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
       <div class="panel on" id="panel-evaluate">
         <div class="field">
           <label class="fl">Job Description</label>
-          <textarea id="jd-in" rows="10" placeholder="Paste the full job description here. Include role title, company, responsibilities, requirements, location, and comp if listed."></textarea>
+          <textarea id="jd-in" rows="10" placeholder="Paste the full job description here. Include role title, company, responsibilities, requirements, location, and comp if listed." oninput="checkAlreadyEvaluated()"></textarea>
+        </div>
+        <div class="already-badge" id="already-badge">
+          <span class="already-badge-text">Already evaluated:</span>
+          <span class="already-badge-role" id="already-badge-role"></span>
+          <button class="already-badge-link" id="already-badge-link" onclick="jumpToExisting()">View &#8594;</button>
         </div>
         <div class="row-end">
-          <button class="btn btn-primary" id="eval-btn" onclick="evalJob()">Analyze role →</button>
+          <button class="btn btn-primary" id="eval-btn" onclick="evalJob()">Analyze role &#8594;</button>
         </div>
         <div class="loader" id="eval-load">
           <div class="ltext">Analyzing fit against your profile...</div>
@@ -384,9 +386,8 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
             <div class="field" style="flex:1"><label class="fl">Length</label>
               <select id="length"><option value="short">Short (3 paragraphs)</option><option value="standard" selected>Standard (4 paragraphs)</option><option value="detailed">Detailed (5 paragraphs)</option></select>
             </div>
-
           </div>
-          <div class="row-end"><button class="btn btn-primary" id="cl-btn" onclick="genCL()">Generate cover letter →</button></div>
+          <div class="row-end"><button class="btn btn-primary" id="cl-btn" onclick="genCL()">Generate cover letter &#8594;</button></div>
           <div class="loader" id="cl-load"><div class="ltext">Writing your cover letter...</div><div class="lbar"><div class="lfill"></div></div></div>
           <div class="out-wrap" id="cl-wrap">
             <div class="out-head"><label class="fl" style="margin:0">Cover letter</label><div style="display:flex;gap:6px"><button class="btn btn-sm btn-ghost" onclick="cp('cl-out')">Copy</button><button class="btn btn-sm btn-applied" onclick="downloadCLPdf()">Download PDF</button></div></div>
@@ -395,7 +396,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
         </div>
         <div class="gblock" id="gen-rb">
           <div class="field"><label class="fl">Job Description</label><textarea id="gen-jd-rb" rows="6" placeholder="Paste JD here, or select from history."></textarea></div>
-          <div class="row-end"><button class="btn btn-primary" id="rb-btn" onclick="genRB()">Generate bullets →</button></div>
+          <div class="row-end"><button class="btn btn-primary" id="rb-btn" onclick="genRB()">Generate bullets &#8594;</button></div>
           <div class="loader" id="rb-load"><div class="ltext">Tailoring resume bullets...</div><div class="lbar"><div class="lfill"></div></div></div>
           <div class="out-wrap" id="rb-wrap"><div class="out-head"><label class="fl" style="margin:0">Resume bullets</label><button class="btn btn-sm btn-ghost" onclick="cp('rb-out')">Copy</button></div><div class="out-box" id="rb-out"></div></div>
         </div>
@@ -406,7 +407,7 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
         <div class="field"><label class="fl">Job Description (for context)</label><textarea id="qa-jd" rows="4" placeholder="Paste JD so answers are role-specific..."></textarea></div>
         <div id="q-slots"></div>
         <button class="add-q" id="add-q" onclick="addQ()">+ Add question</button>
-        <div class="row-end"><button class="btn btn-primary" id="qa-btn" onclick="genQA()">Generate answers →</button></div>
+        <div class="row-end"><button class="btn btn-primary" id="qa-btn" onclick="genQA()">Generate answers &#8594;</button></div>
         <div class="loader" id="qa-load"><div class="ltext">Generating answers in your voice...</div><div class="lbar"><div class="lfill"></div></div></div>
         <div class="out-wrap" id="qa-wrap"><div class="out-head"><label class="fl" style="margin:0">Application answers</label><button class="btn btn-sm btn-ghost" onclick="cp('qa-out')">Copy</button></div><div class="out-box" id="qa-out"></div></div>
       </div>
@@ -451,56 +452,42 @@ select{resize:none;cursor:pointer;-webkit-appearance:none;appearance:none;paddin
 </div>
 
 <script>
-const PROFILE = `PERSON: Melissa Moreira, 30 years old, Brazilian-Portuguese.
-LOCATION: Portugal. Prefers remote work. Open to relocation outside Portugal (not within Portugal). No relocation within Portugal.
-COMPENSATION FLOOR: €1,000/month net minimum. Portugal and EU market rates.
+const PROFILE = `NAME: Sara Pires (full name: Andreia Sara Nunes Pires). She goes by Sara Pires professionally.
+LOCATION: Based in Lisbon, Portugal. Currently in the USA for 5 months but actively seeking roles based in Portugal or fully remote for Portuguese or EU companies. Do not frame her as US-based. Always present her as Lisbon-based or open to Portugal/EU remote.
+COMPENSATION FLOOR: minimum 1,800 EUR per month. Never suggest or write positively about roles below this threshold.
+TARGET ROLES: Translation and language services (Portuguese, English, French), culinary consulting (remote), gastronomic sciences research or education, editorial and content roles, food and beverage operations management, culinary training and instruction, hospitality management. Prioritize roles where her dual background in languages and gastronomy is an asset.
+AVOID: Call centres and call centre-adjacent roles (customer support lines, outbound sales calls, telemarketing). These are an automatic SKIP regardless of pay.
+LANGUAGES: Portuguese (native), English (C2 proficient), French (B2.2 intermediate-advanced). This multilingual profile is a core strength.
+EDUCATION:
+- Master's degree in Gastronomic Sciences, FCT/ISA (Instituto Superior de Agronomia / Faculdade de Ciencias e Tecnologia), Universidade Nova de Lisboa, 2021. Interdisciplinary programme covering food science, gastronomy, sensory analysis, and culinary research.
+- Bachelor's degree in Translation (Portuguese-English-French), Faculdade de Letras, Universidade de Lisboa, 2017. Strong foundation in linguistics, text analysis, and cross-cultural communication.
+- CCP (Certificado de Competencias Pedagogicas), Teaching Certificate, 2021. Qualifies her to teach and train in professional settings in Portugal.
+CORE SKILLS: culinary team leadership and kitchen management, menu development and food concept creation, HACCP food safety compliance, culinary training and staff development, translation (PT/EN/FR), text editing and proofreading, academic and technical writing, project management, data analysis, digital marketing basics, cross-cultural communication, sensory analysis and gastronomic research.
+WORK HISTORY (accurate, use this framing):
+- Sous Chef, Taberna da Rua das Flores, Lisbon (July 2023 to present): Traditional Portuguese fine-casual restaurant. Kitchen operations, menu contribution, team coordination, supplier relations, maintaining HACCP standards.
+- Head Chef, The Corkman Irish Pub, Lisbon (March 2022 to July 2023): Full kitchen ownership. Menu creation, team management, food cost control, ordering and inventory, staff training.
+- Cook, Quinta do Lago, Algarve: Luxury resort kitchen. Fine dining preparation, high-volume service.
+- Cook, Hotel da Estrela, Lisbon: Hotel kitchen operations.
+- Executive Editor, French Department, Chiado Editora, Lisbon (May 2015 to May 2016): Publishing house. Managed the French-language editorial pipeline. Translation, editing, proofreading, coordinating with authors and translators.
+UNIQUE VALUE: Sara bridges two professional worlds: professional kitchens (including leadership and fine-casual dining) and language work (translation, editing, French editorial). Her Master's in Gastronomic Sciences positions her for culinary research, food writing, sensory consulting, and gastronomy education. Her teaching certificate makes her eligible for formal instruction roles in Portugal.
+WRITING STYLE FOR ALL GENERATED CONTENT: First person. Professional but approachable, never stiff or corporate. No em dashes. No buzzword-heavy filler. Clear, direct sentences. Conversational warmth without being informal. Reflect genuine interest in the role's specific context.`;
 
-TARGET ROLES (in priority order):
-1. Junior Graphic Designer — this is the primary target. Her degree is in Graphic Design.
-2. Translator / Language roles — Portuguese (native) and English (C1). Brazilian-Portuguese speaker gives her an edge for Brazilian market roles.
-3. Customer Service / Call Centre — already proven, Teleperformance 2023-2025, bilingual.
-4. Admin, operations, or coordination roles requiring bilingual communication.
-AVOID: Anything sales-adjacent, commission-based, cold outreach, or growth-hacking. These are a hard no.
-
-SKILLS:
-- Graphic design foundations: typography, colour theory, layout, brand identity, visual communication (Estácio de Sá University degree, 2014-2017)
-- Drawing and illustration (active on Instagram, personal portfolio in development)
-- Figma — currently learning, actively developing
-- Microsoft Office
-- Bilingual: Portuguese (native, Brazilian and European), English (C1 professional)
-- Strong communication and interpersonal skills from 2+ years in call centre environment
-- Fast learner, organised, proactive, team player
-- Customer-facing experience across multiple industries
-
-WORK HISTORY:
-- Call Centre Agent, Teleperformance, 07/2023-07/2025, Portugal. Inbound/outbound calls, bilingual (EN/PT), CRM systems, customer enquiries.
-- Cashier, McDonald's, 08/2022-01/2023, Portugal.
-- Waitress, O'Gillins Irish Pub, 10/2021-03/2022, Portugal.
-- Waitress, Buona Pizza, 10/2019-01/2020, Portugal.
-- Cashier, Ymart Supermercado, 08/2017-11/2017, Brazil.
-
-EDUCATION: Bachelor's Degree in Graphic Design, Estácio de Sá University, Brazil, 2014-2017.
-
-PORTFOLIO: Instagram illustrations (personal work, in development). Figma portfolio coming soon. No formal UX portfolio yet — do NOT penalise heavily for junior graphic design roles where personal work is acceptable.
-
-CONTACT: lemelissa_@hotmail.com | +351 936 992 658
-
-WRITING STYLE FOR ALL GENERATED CONTENT: First person. Warm and direct. Sounds like a real person, not a robot. A bit of personality is fine. Professional but not stiff. Short paragraphs. No corporate buzzwords. No em dashes.`;
-
-const SCORE_SYS = `You are a job fit evaluator for Melissa Moreira.\n\n${PROFILE}\n\nEvaluate the job description and return ONLY valid JSON:\n{"role_title":"string","company":"string","verdict":"APPLY|MAYBE|SKIP","grade":"A|B|C|D|F","salary":"string or null","location":"string or null","summary":"2-3 honest sentences","dimensions":[{"name":"Role Alignment","score":0,"note":"brief"},{"name":"Skill Match","score":0,"note":"brief"},{"name":"Location / Remote","score":0,"note":"brief"},{"name":"Seniority Level","score":0,"note":"brief"},{"name":"Industry Fit","score":0,"note":"brief"},{"name":"Comp Signal","score":0,"note":"brief or not listed"}],"strengths":["..."],"gaps":["..."],"highlights":["..."]}\n\nFor "salary": extract any mentioned comp range exactly as written, or null. For "location": extract job location as short label e.g. "Remote", "Austin TX", "London UK", "EU Remote", "Hybrid NYC". If not mentioned use null.\nRULES: Score Location 90-100 for remote roles or relocation outside Portugal (EU countries, international). Score 30-50 if role requires in-person within Portugal (she prefers remote). Score Industry Fit LOW for anything sales, commission, cold outreach, or growth-hacking — hard avoids. For junior graphic design roles, do NOT penalise lack of formal portfolio — Instagram illustration work is valid. Grade A=strong, B=good minor gaps, C=possible gaps, D=reach, F=skip. Verdict: APPLY for A/B, MAYBE for C, SKIP for D/F. Return ONLY JSON.`;
+const SCORE_SYS = `You are a job fit evaluator for Sara Pires, a bilingual professional with dual expertise in culinary arts and language services.\n\n${PROFILE}\n\nEvaluate the job description and return ONLY valid JSON:\n{"role_title":"string","company":"string","verdict":"APPLY|MAYBE|SKIP","grade":"A|B|C|D|F","salary":"string or null","location":"string or null","summary":"2-3 honest sentences","dimensions":[{"name":"Role Alignment","score":0,"note":"brief"},{"name":"Skill Match","score":0,"note":"brief"},{"name":"Location / Remote","score":0,"note":"brief"},{"name":"Seniority Level","score":0,"note":"brief"},{"name":"Industry Fit","score":0,"note":"brief"},{"name":"Comp Signal","score":0,"note":"brief or not listed"}],"strengths":["..."],"gaps":["..."],"highlights":["..."]}\n\nFor "salary": extract any mentioned comp range exactly as written, or null. For "location": extract job location as short label e.g. "Remote", "Lisbon PT", "Porto PT", "EU Remote", "Paris FR". If not mentioned use null.\n\nSCORING RULES:\n- AUTOMATIC SKIP (grade F, verdict SKIP): Any call centre, call centre operations, outbound sales calls, telemarketing, or customer phone-support role. No exceptions.\n- STRONG FIT (grade A or B): Translation roles (PT/EN/FR), editorial or proofreading roles, gastronomic consulting (especially remote), culinary education or training, food writing or content, gastronomic research, head chef or sous chef roles in fine dining or quality establishments, hospitality management with leadership scope.\n- GOOD FIT (grade B or C): Language services adjacent, content localisation, culinary operations management, food & beverage consulting, recipe development, any role combining both skillsets.\n- Location: score 90-100 for Portugal-based roles or fully remote EU roles. Score 60-80 for other EU roles she could do remotely. Score 20-40 for roles requiring relocation outside Portugal or EU. Score 0-10 for US-only in-person roles.\n- Comp: flag any role clearly below EUR 1,800/month as a concern in the note.\n- Grade A=strong, B=good with minor gaps, C=possible with notable gaps, D=reach or poor fit, F=skip.\n- Verdict: APPLY for A/B, MAYBE for C, SKIP for D/F.\n- Return ONLY JSON.`;
 
 const COMPANY_PROMPT = company => `Find the website and a contact/careers email for "${company}". Return ONLY valid JSON: {"website":"string or null","careers_email":"string or null","careers_page":"string or null"}. Use null if not found. Return ONLY the JSON object.`;
 
-const clPrompt = (jd,tone,len) => `Write a cover letter FOR Melissa Moreira.\n\n${PROFILE}\n\nJD: ${jd}\nTONE: ${tone}\nLENGTH: ${len==='short'?'3 paragraphs':len==='standard'?'4 paragraphs':'5 paragraphs'}\n\nOpen with specific hook (not "I am writing to apply"). Reference real projects. Speak to company context. Confident close. Use "Hi [Company] team,". Follow Nick's writing style. Output letter text only.`;
-const rbPrompt = jd => `Write tailored resume bullets FOR Melissa Moreira.\n\n${PROFILE}\n\nJD: ${jd}\n\n6-8 bullets from Nick's REAL experience ordered by what this role values. Strong action verbs. Real metrics where they exist. Max 20 words each. Each starts with (•). Output only bullets.`;
-const qaPrompt = (jd,qs) => `Answer application questions FOR Melissa Moreira.\n\n${PROFILE}\n\nJD: ${jd||'(none)'}\n\nQUESTIONS:\n${qs.map((q,i)=>`${i+1}. ${q}`).join('\n')}\n\nDirect answers from real experience. 2-5 sentences each. First person, no em dashes, conversational.\n\nFormat:\nQ1: [question]\nA1: [answer]\n\nQ2: [question]\nA2: [answer]`;
+const clPrompt = (jd,tone,len) => `HARD RULE, NON-NEGOTIABLE: Never use an em dash (—) anywhere in your output, under any circumstance. If you would normally use one, use a period, comma, or colon instead. Check your output before finishing and remove any em dash you find.\n\nWrite a cover letter FOR Sara Pires.\n\n${PROFILE}\n\nJD: ${jd}\nTONE: ${tone}\nLENGTH: ${len==='short'?'3 paragraphs':len==='standard'?'4 paragraphs':'5 paragraphs'}\n\nOpen with a specific hook relevant to the role and company (not "I am writing to apply"). Reference her real experience. Speak to the company context if anything in the JD signals it. Confident, warm close. Use "Hi [Company] team," as the opening salutation.\n\nLocation framing: Sara is based in Lisbon, Portugal. If the role is remote or Portugal-based, say so naturally. If the role requires her to relocate, acknowledge her Lisbon base and openness to the arrangement if it genuinely fits.\n\nOutput the letter text only. No markdown formatting.`;
+
+const rbPrompt = jd => `HARD RULE, NON-NEGOTIABLE: Never use an em dash (—) anywhere in your output, under any circumstance. If you would normally use one, use a period, comma, or colon instead. Check your output before finishing and remove any em dash you find.\n\nWrite tailored resume bullets FOR Sara Pires.\n\n${PROFILE}\n\nJD: ${jd}\n\n6-8 bullets drawn from Sara's REAL experience, ordered by what this role values most. Strong action verbs. Real specifics where they exist (HACCP, team sizes, languages, editorial pipeline, etc.). Max 20 words each. Each starts with (•). Output only bullets.`;
+
+const qaPrompt = (jd,qs) => `HARD RULE, NON-NEGOTIABLE: Never use an em dash (—) anywhere in your output, under any circumstance. If you would normally use one, use a period, comma, or colon instead. Check your output before finishing and remove any em dash you find.\n\nAnswer application questions FOR Sara Pires.\n\n${PROFILE}\n\nJD: ${jd||'(none)'}\n\nQUESTIONS:\n${qs.map((q,i)=>`${i+1}. ${q}`).join('\n')}\n\nDirect answers grounded in real experience. 2-5 sentences each. First person, no em dashes, professional but warm tone.\n\nFormat:\nQ1: [question]\nA1: [answer]\n\nQ2: [question]\nA2: [answer]`;
 
 // STATE
-let history = JSON.parse(localStorage.getItem('jo_hist') || '[]');
+let history = JSON.parse(localStorage.getItem('jo_hist_sara') || '[]');
 let selIdx = null;
 let qCount = 0;
 let activeFilter = 'all';
-let syncKey = localStorage.getItem('jo_sync_key') || '';
+let syncKey = localStorage.getItem('jo_sync_key_sara') || '';
 let syncTimeout = null;
 
 window.onload = () => {
@@ -514,7 +501,7 @@ window.onload = () => {
   }
 };
 
-// ── SEARCH ──────────────────────────────────────────────────────────────────
+// SEARCH
 function getSearchQuery() {
   const s = document.getElementById('search-input');
   const sd = document.getElementById('search-input-drawer');
@@ -529,7 +516,7 @@ function syncSearchInputs(src) {
   if (sd && sd !== src) sd.value = val;
 }
 
-// ── SYNC ────────────────────────────────────────────────────────────────────
+// SYNC
 function setSyncStatus(msg, state) {
   const el = document.getElementById('sync-status');
   if (!el) return;
@@ -552,7 +539,7 @@ function activateSyncKey() {
   const key = inp?.value.trim();
   if (!key) { alert('Paste a sync key first.'); return; }
   syncKey = key;
-  localStorage.setItem('jo_sync_key', syncKey);
+  localStorage.setItem('jo_sync_key_sara', syncKey);
   document.getElementById('key-setup-block').style.display = 'none';
   loadFromSupabase();
 }
@@ -570,7 +557,7 @@ async function loadFromSupabase() {
     if (data.error) throw new Error(data.error);
     if (data.evals && data.evals.length > 0) {
       history = data.evals;
-      localStorage.setItem('jo_hist', JSON.stringify(history));
+      localStorage.setItem('jo_hist_sara', JSON.stringify(history));
     }
     setSyncStatus('Synced ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}), 'ok');
     renderHist();
@@ -604,8 +591,6 @@ function sw(name,btn){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('panel-'+name).classList.add('on');
   btn.classList.add('on');
-  // close sidebar on mobile when switching panels
-  document.querySelector('.sidebar')?.classList.remove('mobile-open');
 }
 
 function mobSw(name,btn){
@@ -613,13 +598,10 @@ function mobSw(name,btn){
   document.querySelectorAll('.mob-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('panel-'+name).classList.add('on');
   btn.classList.add('on');
-  // sync desktop nav
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   const map={evaluate:0,generate:1,qa:2};
   document.querySelectorAll('.nav-btn')[map[name]]?.classList.add('on');
-  // close drawer
   document.getElementById('hist-drawer')?.classList.remove('open');
-  // scroll content to top
   document.querySelector('.content')?.scrollTo(0,0);
 }
 
@@ -645,7 +627,7 @@ function activateMobSyncKey(){
   const key=inp?.value.trim();
   if(!key){alert('Paste a sync key first.');return;}
   syncKey=key;
-  localStorage.setItem('jo_sync_key',syncKey);
+  localStorage.setItem('jo_sync_key_sara',syncKey);
   loadFromSupabase().then(()=>{ renderDrawerHist(); renderMobSync(); });
 }
 
@@ -662,7 +644,6 @@ function toggleDrawer(btn){
 
 function closeDrawer(){
   document.getElementById('hist-drawer')?.classList.remove('open');
-  // restore active panel tab
   const active=document.querySelector('.panel.on');
   if(active){
     const name=active.id.replace('panel-','');
@@ -680,11 +661,11 @@ function renderDrawerHist(){
   if(activeFilter==='applied') items=items.filter(({item})=>item.applied);
   if(q) items=items.filter(({item})=>(item.role_title||'').toLowerCase().includes(q)||(item.company||'').toLowerCase().includes(q));
   if(!items.length){el.innerHTML=`<div class="no-hist">${activeFilter==='applied'?'No applied roles yet':'No evaluations yet'}</div>`;return;}
-  const locClass=loc=>!loc?'':loc.toLowerCase().includes('remote')?' remote':loc.match(/germany|netherlands|spain|portugal|uk|london|berlin|amsterdam|eu|europe/i)?' eu':loc.match(/tx|tn|nc|il|ca|austin|nashville|raleigh|chicago|san francisco|san diego|us|usa/i)?' us':'';
+  const locClass=loc=>!loc?'':loc.toLowerCase().includes('remote')?' remote':loc.match(/portugal|lisbon|porto|spain|france|germany|netherlands|uk|europe|eu/i)?' eu':'';
   el.innerHTML=items.map(({item,ri})=>{
     const appliedClass=item.applied?' applied':'';
     const dotClass=item.applied?' on':'';
-    const dateStr=item.appliedDate||(item.ts?new Date(item.ts).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'');
+    const dateStr=item.appliedDate||(item.ts?new Date(item.ts).toLocaleDateString('en-GB',{month:'short',day:'numeric'}):'');
     return `<div class="hist-item${selIdx===ri?' on':''}${appliedClass}" onclick="selHistDrawer(${ri})">
       <div class="hgrade h${item.grade}">${item.grade}</div>
       <div class="hinfo">
@@ -708,7 +689,53 @@ function swG(name,btn){document.querySelectorAll('.gblock').forEach(g=>g.classLi
 function setFilter(f,btn){activeFilter=f;document.querySelectorAll('.sf-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderHist();}
 
 // HISTORY
+let _existingIdx = null;
+
+function checkAlreadyEvaluated(){
+  const jd = document.getElementById('jd-in').value.trim();
+  const badge = document.getElementById('already-badge');
+  const roleEl = document.getElementById('already-badge-role');
+  if(!jd || jd.length < 100){ badge.classList.remove('on'); _existingIdx=null; return; }
+  const fingerprint = jd.slice(0, 300).toLowerCase().replace(/\s+/g,' ');
+  let found = null;
+  let foundIdx = null;
+  for(let i=history.length-1;i>=0;i--){
+    if(!history[i].jd) continue;
+    const hfp = history[i].jd.slice(0,300).toLowerCase().replace(/\s+/g,' ');
+    const minLen = Math.min(fingerprint.length, hfp.length, 200);
+    let matches = 0;
+    for(let c=0;c<minLen;c++){ if(fingerprint[c]===hfp[c]) matches++; }
+    if(matches/minLen > 0.80){ found=history[i]; foundIdx=i; break; }
+  }
+  if(found){
+    _existingIdx = foundIdx;
+    badge.classList.add('on');
+    roleEl.textContent = found.role_title + (found.company ? ' at ' + found.company : '') + ' (' + found.grade + ')';
+  } else {
+    _existingIdx = null;
+    badge.classList.remove('on');
+  }
+}
+
+function jumpToExisting(){
+  if(_existingIdx===null) return;
+  selHist(_existingIdx);
+}
+
+function renderGradeStats(){
+  const el=document.getElementById('grade-stats');
+  if(!el) return;
+  const counts={A:0,B:0,C:0,D:0,F:0};
+  history.forEach(item=>{ if(counts[item.grade]!==undefined) counts[item.grade]++; });
+  const total=Object.values(counts).reduce((a,b)=>a+b,0);
+  if(!total){ el.innerHTML=''; return; }
+  el.innerHTML=Object.entries(counts).map(([g,n])=>
+    `<div class="gstat gs${g}" title="${n} ${g}-grade role${n!==1?'s':''}"><span>${g}</span><span class="gstat-count">${n}</span></div>`
+  ).join('');
+}
+
 function renderHist() {
+  renderGradeStats();
   const el = document.getElementById('hist-list');
   const q = getSearchQuery();
   let items = history.slice().reverse().map((item,i)=>({item,ri:history.length-1-i}));
@@ -718,8 +745,8 @@ function renderHist() {
   el.innerHTML=items.map(({item,ri})=>{
     const appliedClass=item.applied?' applied':'';
     const dotClass=item.applied?' on':'';
-    const dateStr=item.appliedDate||( item.ts?new Date(item.ts).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'');
-    const locClass = item.location ? (item.location.toLowerCase().includes('remote') ? ' remote' : item.location.match(/germany|netherlands|spain|portugal|uk|london|berlin|amsterdam|eu|europe/i) ? ' eu' : item.location.match(/tx|tn|nc|il|ca|austin|nashville|raleigh|chicago|san francisco|san diego|us|usa/i) ? ' us' : '') : '';
+    const dateStr=item.appliedDate||( item.ts?new Date(item.ts).toLocaleDateString('en-GB',{month:'short',day:'numeric'}):'');
+    const locClass = item.location ? (item.location.toLowerCase().includes('remote') ? ' remote' : item.location.match(/portugal|lisbon|porto|spain|france|germany|netherlands|uk|europe|eu/i) ? ' eu' : '') : '';
     return `<div class="hist-item${selIdx===ri?' on':''}${appliedClass}" onclick="selHist(${ri})">
       <div class="hgrade h${item.grade}">${item.grade}</div>
       <div class="hinfo">
@@ -737,7 +764,6 @@ function selHist(idx) {
   selIdx=idx;
   renderHist();
   const item=history[idx];
-  // Restore JD into the input box
   if (item.jd) document.getElementById('jd-in').value=item.jd;
   renderScore(item);
   document.getElementById('gen-jd').value=item.jd||'';
@@ -763,7 +789,7 @@ function saveHist(data,jd) {
 }
 
 function persist(){
-  localStorage.setItem('jo_hist',JSON.stringify(history));
+  localStorage.setItem('jo_hist_sara',JSON.stringify(history));
   if (syncKey) {
     clearTimeout(syncTimeout);
     syncTimeout = setTimeout(saveToSupabase, 1500);
@@ -774,7 +800,7 @@ function persist(){
 function toggleApplied(idx) {
   const item=history[idx];
   item.applied=!item.applied;
-  item.appliedDate=item.applied?new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):null;
+  item.appliedDate=item.applied?new Date().toLocaleDateString('en-GB',{month:'short',day:'numeric',year:'numeric'}):null;
   if (item.applied && !item.companyInfo) lookupCompany(idx);
   persist();
   renderHist();
@@ -797,32 +823,7 @@ async function genRecruiterMsg(idx) {
   const recruiterName=document.getElementById('fu-recruiter-name')?.value.trim()||'';
   if (recruiterName) { history[idx].recruiterName=recruiterName; persist(); }
 
-  const prompt=`Write a LinkedIn outreach message FROM Melissa Moreira to a recruiter or hiring contact. Follow this exact structure and format:
-
-${PROFILE}
-
-ROLE: ${item.role_title} at ${item.company}
-CONTACT NAME: ${recruiterName||'(use "Hi there" if no name)'}
-APPLIED: ${item.appliedDate||'recently'}
-
-REQUIRED FORMAT — follow this structure exactly:
-
-Hi [contact name],
-
-I saw that [company] is looking for a [role title] and wanted to reach out directly. If there's a better person to connect with, just point me in the right direction.
-
-[One paragraph, 2-3 sentences: match Nick's most relevant real experience to what this specific role needs. Be specific — name actual projects, products, or companies. Do NOT use generic phrases like "proven track record" or "passionate about design". Pull from his real case studies and work history to show genuine fit for this specific role and company.]
-
-If you're curious, here's my portfolio: nicknewhart.com
-
-Thank you for your time!
-
-RULES:
-- No em dashes anywhere
-- First person, conversational, sounds like a human not an AI
-- The body paragraph must reference real projects by name (roam., LiveBy, Brandzooka, etc.)
-- Keep the whole message under 150 words
-- Output only the message text, no subject line, no markdown`;
+  const prompt=`HARD RULE, NON-NEGOTIABLE: Never use an em dash anywhere in your output. Use a period, comma, or colon instead.\n\nWrite a LinkedIn outreach message FROM Sara Pires to a recruiter or hiring contact.\n\n${PROFILE}\n\nROLE: ${item.role_title} at ${item.company}\nCONTACT NAME: ${recruiterName||'(use "Hi there" if no name)'}\nAPPLIED: ${item.appliedDate||'recently'}\n\nREQUIRED FORMAT:\n\nHi [contact name],\n\nI saw that [company] is looking for a [role title] and wanted to reach out directly. If there is a better person to connect with, just point me in the right direction.\n\n[One paragraph, 2-3 sentences: match Sara's most relevant real experience to what this specific role needs. Be specific. Name actual roles, skills, or credentials. Do NOT use generic phrases like "proven track record" or "passionate about food". Pull from her real experience to show genuine fit.]\n\nThank you for your time!\n\nRULES:\n- No em dashes\n- First person, conversational, sounds like a real person\n- Keep under 150 words\n- Output only the message text`;
 
   const btn=document.getElementById('gen-msg-btn');
   const loader=document.getElementById('recruiter-msg-loader');
@@ -848,7 +849,6 @@ RULES:
 async function lookupCompany(idx) {
   const item=history[idx];
   if (!item.company) return;
-  // Show loading state in follow-up card if already rendered
   const ciEl=document.getElementById('company-info-content');
   if (ciEl) ciEl.innerHTML='<span class="ci-loading">Looking up company info...</span>';
   try {
@@ -905,7 +905,6 @@ function renderScore(d) {
   const appliedBtnLabelShort=item.applied?'Applied ✓':'+ Applied';
   const appliedBtnClass=item.applied?'btn btn-sm btn-applied is-applied':'btn btn-sm btn-applied';
 
-  // Company info block
   let companyBlock='';
   if (item.companyInfo) {
     const ci=item.companyInfo;
@@ -926,7 +925,6 @@ function renderScore(d) {
     </div>`;
   }
 
-  // Follow-up block (only when applied)
   let followupBlock='';
   if (item.applied) {
     const ci=item.companyInfo||{};
@@ -975,6 +973,7 @@ function renderScore(d) {
           </div>
         </div>
         <div class="sc-actions">
+          <button class="btn btn-sm btn-ghost" onclick="downloadSummaryPdf(${idx})" title="Download a PDF summary"><span class="full-label">Download Summary</span><span class="short-label">Summary</span></button>
           <button class="${appliedBtnClass}" onclick="toggleApplied(${idx})"><span class="full-label">${appliedBtnLabelFull}</span><span class="short-label">${appliedBtnLabelShort}</span></button>
         </div>
       </div>
@@ -989,12 +988,26 @@ function renderScore(d) {
 }
 
 // GENERATE
+function findHistIdxByJD(jd){
+  if(!jd) return selIdx;
+  const trimmed = jd.trim();
+  for(let i=history.length-1;i>=0;i--){
+    if(history[i].jd && history[i].jd.trim()===trimmed) return i;
+  }
+  return selIdx;
+}
+
 async function genCL(){
   const jd=document.getElementById('gen-jd').value.trim();
   if(!jd){alert('Paste a job description.');return;}
   setLoad('cl',true);document.getElementById('cl-wrap').classList.remove('on');
-  const region=document.getElementById('region')?.value||'us';
-  try{const txt=await call(clPrompt(jd,document.getElementById('tone').value,document.getElementById('length').value),1100);document.getElementById('cl-out').textContent=txt.trim();document.getElementById('cl-out').dataset.region=region;document.getElementById('cl-wrap').classList.add('on');}
+  try{
+    const txt=await call(clPrompt(jd,document.getElementById('tone').value,document.getElementById('length').value),1100);
+    document.getElementById('cl-out').textContent=txt.trim();
+    document.getElementById('cl-wrap').classList.add('on');
+    const hIdx=findHistIdxByJD(jd);
+    if(hIdx!==null && history[hIdx]){ history[hIdx].coverLetter=txt.trim(); persist(); }
+  }
   catch(e){alert('Error: '+e.message);}
   finally{setLoad('cl',false);}
 }
@@ -1003,7 +1016,13 @@ async function genRB(){
   const jd=document.getElementById('gen-jd-rb').value.trim();
   if(!jd){alert('Paste a job description.');return;}
   setLoad('rb',true);document.getElementById('rb-wrap').classList.remove('on');
-  try{const txt=await call(rbPrompt(jd),900);document.getElementById('rb-out').textContent=txt.trim();document.getElementById('rb-wrap').classList.add('on');}
+  try{
+    const txt=await call(rbPrompt(jd),900);
+    document.getElementById('rb-out').textContent=txt.trim();
+    document.getElementById('rb-wrap').classList.add('on');
+    const hIdx=findHistIdxByJD(jd);
+    if(hIdx!==null && history[hIdx]){ history[hIdx].resumeBullets=txt.trim(); persist(); }
+  }
   catch(e){alert('Error: '+e.message);}
   finally{setLoad('rb',false);}
 }
@@ -1017,26 +1036,154 @@ async function genQA(){
   const qs=[];document.querySelectorAll('[id^="qi"]').forEach(inp=>{if(inp.value.trim())qs.push(inp.value.trim());});
   if(!qs.length){alert('Add at least one question.');return;}
   setLoad('qa',true);document.getElementById('qa-wrap').classList.remove('on');
-  try{const txt=await call(qaPrompt(jd,qs),1400);document.getElementById('qa-out').textContent=txt.trim();document.getElementById('qa-wrap').classList.add('on');}
+  try{
+    const txt=await call(qaPrompt(jd,qs),1400);
+    document.getElementById('qa-out').textContent=txt.trim();
+    document.getElementById('qa-wrap').classList.add('on');
+    const hIdx=findHistIdxByJD(jd);
+    if(hIdx!==null && history[hIdx]){ history[hIdx].qaAnswers=txt.trim(); persist(); }
+  }
   catch(e){alert('Error: '+e.message);}
   finally{setLoad('qa',false);}
 }
 
 // PDF DOWNLOAD
+function downloadSummaryPdf(idx){
+  const item = history[idx];
+  if(!item){ alert('Could not find this evaluation.'); return; }
+
+  const dateStr = item.ts ? new Date(item.ts).toLocaleDateString('en-GB',{month:'long',day:'numeric',year:'numeric'}) : '';
+  const appliedStr = item.applied ? (item.appliedDate||'Yes') : 'Not marked applied';
+
+  const gradeColors = {A:'#166534',B:'#166534',C:'#713f12',D:'#7c2d12',F:'#7f1d1d'};
+  const gradeColor = gradeColors[item.grade] || '#444';
+
+  const dimsHtml = (item.dimensions||[]).map(d => {
+    const pct = Math.round(d.score);
+    return `<tr>
+      <td style="padding:6px 0;font-size:13px;color:#333;width:140px;">${d.name}</td>
+      <td style="padding:6px 0;">
+        <div style="background:#eee;border-radius:3px;height:8px;width:100%;max-width:200px;overflow:hidden;">
+          <div style="background:${pct>=70?'#4ade80':pct>=45?'#facc15':'#f87171'};height:100%;width:${pct}%;"></div>
+        </div>
+      </td>
+      <td style="padding:6px 0 6px 10px;font-size:13px;color:#666;width:40px;">${pct}</td>
+      <td style="padding:6px 0 6px 16px;font-size:12px;color:#888;font-style:italic;">${d.note||''}</td>
+    </tr>`;
+  }).join('');
+
+  const pillsHtml = (arr, color, bg) => (arr||[]).map(s =>
+    `<span style="display:inline-block;font-size:11px;padding:3px 9px;border-radius:4px;background:${bg};color:${color};margin:2px 4px 2px 0;">${s}</span>`
+  ).join('');
+
+  const jdEscaped = (item.jd||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const clEscaped = item.coverLetter ? item.coverLetter.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
+  const rbEscaped = item.resumeBullets ? item.resumeBullets.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
+  const qaEscaped = item.qaAnswers ? item.qaAnswers.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
+
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Application Summary — ${item.company}</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a1a;padding:50px 60px;max-width:800px;margin:0 auto;font-size:14px;line-height:1.6}
+  @media print{body{padding:40px 50px}@page{margin:0;size:letter}}
+  .header{border-bottom:3px solid ${gradeColor};padding-bottom:18px;margin-bottom:24px;display:flex;align-items:flex-start;gap:16px}
+  .grade-badge{font-family:'Geist Mono',monospace;font-size:28px;font-weight:600;width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:${gradeColor}1A;color:${gradeColor};flex-shrink:0;border:1px solid ${gradeColor}55}
+  .role-title{font-size:22px;font-weight:600;color:#1a1a1a;margin-bottom:2px}
+  .company-name{font-size:15px;color:#555}
+  .meta-row{font-family:'Geist Mono',monospace;font-size:11px;color:#888;margin-top:6px;letter-spacing:0.02em}
+  .section{margin-bottom:26px}
+  .section-title{font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#888;border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:12px}
+  .summary-text{font-size:13px;color:#444;line-height:1.7}
+  .jd-box{background:#f7f7f7;border:1px solid #e5e5e5;border-radius:6px;padding:16px 18px;font-size:12px;color:#555;line-height:1.7;white-space:pre-wrap;max-height:300px;overflow:hidden;}
+  .output-box{background:#f7f7f7;border:1px solid #e5e5e5;border-radius:6px;padding:16px 18px;font-size:13px;color:#333;line-height:1.75;white-space:pre-wrap}
+  table{width:100%}
+  .footer-note{font-size:11px;color:#aaa;text-align:center;margin-top:30px;font-style:italic}
+</style>
+</head><body>
+
+<div class="header">
+  <div class="grade-badge">${item.grade||'?'}</div>
+  <div>
+    <div class="role-title">${item.role_title||'Untitled Role'}</div>
+    <div class="company-name">${item.company||''}</div>
+    <div class="meta-row">EVALUATED ${dateStr.toUpperCase()} &nbsp;&middot;&nbsp; APPLIED: ${appliedStr.toUpperCase()} &nbsp;&middot;&nbsp; ${item.salary?('SALARY: '+item.salary.toUpperCase()+' &nbsp;&middot;&nbsp; '):''}${item.location?('LOCATION: '+item.location.toUpperCase()):''}</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Fit Summary</div>
+  <div class="summary-text">${item.summary||''}</div>
+</div>
+
+${item.dimensions && item.dimensions.length ? `<div class="section">
+  <div class="section-title">Score Breakdown</div>
+  <table>${dimsHtml}</table>
+</div>` : ''}
+
+${(item.strengths?.length || item.gaps?.length || item.highlights?.length) ? `<div class="section">
+  <div class="section-title">Signals</div>
+  ${item.strengths?.length ? `<div style="margin-bottom:8px;">${pillsHtml(item.strengths,'#166534','#dcfce7')}</div>` : ''}
+  ${item.gaps?.length ? `<div style="margin-bottom:8px;">${pillsHtml(item.gaps,'#7f1d1d','#fee2e2')}</div>` : ''}
+  ${item.highlights?.length ? `<div>${pillsHtml(item.highlights,'#0c447c','#dbeafe')}</div>` : ''}
+</div>` : ''}
+
+${clEscaped ? `<div class="section">
+  <div class="section-title">Cover Letter</div>
+  <div class="output-box">${clEscaped}</div>
+</div>` : ''}
+
+${qaEscaped ? `<div class="section">
+  <div class="section-title">Application Question Answers</div>
+  <div class="output-box">${qaEscaped}</div>
+</div>` : ''}
+
+${rbEscaped ? `<div class="section">
+  <div class="section-title">Tailored Resume Bullets</div>
+  <div class="output-box">${rbEscaped}</div>
+</div>` : ''}
+
+${item.recruiterName || item.recruiterMsg ? `<div class="section">
+  <div class="section-title">Recruiter Outreach</div>
+  ${item.recruiterName ? `<div style="font-size:12px;color:#888;margin-bottom:8px;">Contact: ${item.recruiterName}</div>` : ''}
+  ${item.recruiterMsg ? `<div class="output-box">${item.recruiterMsg.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>` : ''}
+</div>` : ''}
+
+${item.notes ? `<div class="section">
+  <div class="section-title">Follow-up Notes</div>
+  <div class="summary-text">${item.notes.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+</div>` : ''}
+
+<div class="section">
+  <div class="section-title">Original Job Description</div>
+  <div class="jd-box">${jdEscaped.slice(0,2000)}${jdEscaped.length>2000?'\n\n[truncated]':''}</div>
+</div>
+
+<div class="footer-note">Generated by Job Ops &middot; Sara Pires &middot; ${new Date().toLocaleDateString('en-GB',{month:'long',day:'numeric',year:'numeric'})}</div>
+
+</body></html>`;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  win.onload = () => { win.focus(); win.print(); };
+}
+
 function downloadCLPdf(){
   const text=document.getElementById('cl-out').textContent.trim();
   if(!text){alert('Generate a cover letter first.');return;}
   const idx=selIdx!==null?selIdx:history.length-1;
   const role=history[idx]?.role_title||'';
   const company=history[idx]?.company||'';
-  const dateStr=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const dateStr=new Date().toLocaleDateString('en-GB',{month:'long',day:'numeric',year:'numeric'});
   const paragraphs=text.split('\n').filter(l=>l.trim()).map(l=>`<p style="margin:0 0 14px 0;line-height:1.7;color:#1a1a1a;">${l}</p>`).join('');
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cover Letter — Melissa Moreira</title>
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Cover Letter — Sara Pires</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a1a;padding:72px 80px;max-width:760px;margin:0 auto}@media print{body{padding:54px 60px}@page{margin:0;size:letter}}.header{border-bottom:2px solid #1a1a1a;padding-bottom:20px;margin-bottom:32px}.name{font-size:24px;font-weight:500;letter-spacing:-0.02em;color:#1a1a1a;margin-bottom:6px}.contact{font-size:12px;color:#555;letter-spacing:0.04em;display:flex;gap:20px}.meta{font-size:12px;color:#888;margin-bottom:28px}.body{font-size:14px}</style>
 </head><body>
-<div class="header"><div class="name">Melissa Moreira</div><div class="contact"><span>lemelissa_@hotmail.com</span><span>+351 936 992 658</span></div></div>
-<div class="meta">${dateStr}${company?' &nbsp;·&nbsp; '+company:''}${role?' &nbsp;·&nbsp; '+role:''}</div>
+<div class="header"><div class="name">Sara Pires</div><div class="contact"><span>asaranpires@gmail.com</span><span>+351 919 533 855</span></div></div>
+<div class="meta">${dateStr}${company?' &nbsp;&middot;&nbsp; '+company:''}${role?' &nbsp;&middot;&nbsp; '+role:''}</div>
 <div class="body">${paragraphs}</div>
 </body></html>`;
   const win=window.open('','_blank');
@@ -1047,9 +1194,17 @@ function downloadCLPdf(){
 
 // API
 async function call(prompt,maxTokens){
-  const res=await fetch('/api/proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTokens||1000,messages:[{role:'user',content:prompt}]})});
-  if(!res.ok){const e=await res.json();throw new Error(e.error?.message||'API error '+res.status);}
-  const data=await res.json();
+  const res=await fetch('/api/proxy',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1000,messages:[{role:'user',content:prompt}]})});
+
+  const rawText=await res.text();
+  let data;
+  try{ data=JSON.parse(rawText); }
+  catch{
+    throw new Error(rawText && rawText.trim() ? 'Server returned an unexpected response: '+rawText.slice(0,200) : 'Server returned an empty or invalid response (status '+res.status+').');
+  }
+
+  if(!res.ok){ throw new Error(data.error?.message || 'API error '+res.status); }
+  if(!data.content || !data.content[0] || !data.content[0].text){ throw new Error('Unexpected response shape from API.'); }
   return data.content[0].text;
 }
 
